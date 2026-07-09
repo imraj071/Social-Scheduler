@@ -1,6 +1,7 @@
-import { useState } from "react"
-import { PLATFORMS } from "../assets/assets"
+import { useEffect, useState } from "react"
+import { dummyAccountsData, PLATFORMS } from "../assets/assets"
 import { PlusIcon } from "lucide-react"
+import AccountList from "../components/AccountList"
 
 
 const Accounts = () => {
@@ -9,6 +10,20 @@ const Accounts = () => {
   const [connecting, setConnecting] = useState<string | null>(null)
   const [showPlatformPicker, setShowPlatformPicker] = useState(false)
 
+  const fetchAccounts = async (isSync = false, platform?: string | null, successMsg?: string) => {
+      setAccounts(dummyAccountsData);
+      console.log(isSync, platform, successMsg)
+  }
+
+  useEffect(()=>{
+    fetchAccounts()
+  },[])
+
+  const handleDisconnect = async (accountId: string) => {
+    setAccounts(accounts.filter((a)=>a.id !== accountId))
+  }
+
+  const connectedIds = accounts.map((a)=>a.platform)
 
   return (
     <div className="space-y-8 max-w-4xl">
@@ -27,6 +42,7 @@ const Accounts = () => {
       {/* Platform accounts list */}
 
       {/* Connected accounts list */}
+      <AccountList accounts={accounts} onDisconnect={handleDisconnect} />
 
     </div>
   )
