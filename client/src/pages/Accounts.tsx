@@ -19,6 +19,15 @@ const Accounts = () => {
     fetchAccounts()
   },[])
 
+  const handleConnect = async (platformId: string) => {
+    setConnecting(platformId);
+    setTimeout(()=>{
+      setConnecting(null);
+      setAccounts((prev)=>[...prev, dummyAccountsData[0]]);
+      setShowPlatformPicker(false);
+    },1000)
+  }
+
   const handleDisconnect = async (accountId: string) => {
     setAccounts(accounts.filter((a)=>a.id !== accountId))
   }
