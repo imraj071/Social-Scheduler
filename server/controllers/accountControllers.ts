@@ -13,3 +13,16 @@ export const getAccounts = async (req: AuthRequest, res: Response): Promise<void
         res.status(500).json({message: error?.message || "Server Error"});
     }
 }
+
+//Add account
+// POST / api/accounts
+export const addAccount = async (req: AuthRequest, res: Response): Promise<void> => {
+    try {
+        const {platform, handle, avatarUrl} = req.body;
+
+        const account = await Account.create({user: req.user._id, platform, handle, avatarUrl})
+        res.status(201).json(account);
+    } catch (error:any) {
+        res.status(500).json({message: error?.message || "Server Error"});
+    }
+}
