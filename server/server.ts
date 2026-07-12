@@ -1,8 +1,13 @@
 import "dotenv/config";
 import express, { Request, Response } from 'express';
 import cors from "cors";
+import { connect } from "node:http2";
+import connectDB from "./config/db.js";
 
 const app = express();
+
+// Database connection
+await connectDB()
 
 // Middleware
 app.use(cors())
