@@ -145,9 +145,14 @@ export const generatePost = async (req : AuthRequest, res: Response): Promise<vo
 // GET /api/posts/generations
 export const getGenerations = async (req : AuthRequest, res: Response): Promise<void> => {
     try {
+
+        const generations = await Generation.find({user: req.user._id}).sort({createdAt: -1});
+        res.json(generations);
         
     } catch (error:any) {
-        
+
+        res.status(500).json({message: error?.message || "Server Error"})
+
     }
 }
 
@@ -157,7 +162,7 @@ export const getPosts = async (req : AuthRequest, res: Response): Promise<void> 
     try {
         
     } catch (error:any) {
-        
+        res.status(500).json({message: error?.message || "Server Error"})
     }
 }
 
@@ -167,6 +172,6 @@ export const schedulePosts = async (req : AuthRequest, res: Response): Promise<v
     try {
         
     } catch (error:any) {
-        
+        res.status(500).json({message: error?.message || "Server Error"})
     }
 }
