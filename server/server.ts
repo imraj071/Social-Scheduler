@@ -27,7 +27,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/oauth', socialAuthRouter)
 app.use('/api/accounts',accountRouter)
 app.use('/api/posts', postRouter)
-app.use('api/activity', activityRouter)
+app.use('/api/activity', activityRouter)
 
 //Global Error Handler
 app.use((err:any, _req:Request, res: Response, _next: NextFunction)=>{
