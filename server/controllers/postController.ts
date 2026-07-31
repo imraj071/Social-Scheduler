@@ -4,6 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 import axios from "axios";
 import { cloudinary } from "../config/cloudinary.js";
 import { Generation } from "../models/generation.js";
+import { Post } from "../models/post.js";
 
 //Helper to poll Leonardo.ai
 const pollLeonardoJob = async (generationId: string, apiKey: string): Promise<string> => {
@@ -160,6 +161,9 @@ export const getGenerations = async (req : AuthRequest, res: Response): Promise<
 // GET /api/posts
 export const getPosts = async (req : AuthRequest, res: Response): Promise<void> => {
     try {
+
+        const posts = await Post.find({user: req.user._id})
+        res.json(posts);
         
     } catch (error:any) {
         res.status(500).json({message: error?.message || "Server Error"})
@@ -170,6 +174,8 @@ export const getPosts = async (req : AuthRequest, res: Response): Promise<void> 
 // POST /api/posts
 export const schedulePosts = async (req : AuthRequest, res: Response): Promise<void> => {
     try {
+
+        
         
     } catch (error:any) {
         res.status(500).json({message: error?.message || "Server Error"})
