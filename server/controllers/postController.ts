@@ -35,7 +35,10 @@ const pollLeonardoJob = async (generationId: string, apiKey: string): Promise<st
         } catch (err: any){
             console.log("Polling error: ", err?.response.data || err.message);
         }
+
+        await new Promise((resolve) => setTimeout(resolve, delay));
     }
+    throw new Error("Leonardo.ai generation timed out.")
 }
 
 //Generate post
